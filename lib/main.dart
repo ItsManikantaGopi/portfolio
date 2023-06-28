@@ -1,4 +1,7 @@
+import 'package:animated_radial_menu/animated_radial_menu.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:mouse_parallax/mouse_parallax.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Manikanta Gopi',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       home: const MyHomePage(),
     );
   }
@@ -32,9 +34,68 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: const Center(
-          child: Text('Manikanta Gopi'),
-        )
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+
+
+            Expanded(
+              child: ParallaxStack(
+                layers: [
+                  ParallaxLayer(
+                    yRotation: 0.35,
+                    xOffset: 60,
+                    zRotation: 0.35,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Center(
+                        child:AnimatedTextKit(
+                          animatedTexts: [
+                            WavyAnimatedText('Manikanta Gopi',
+                                textStyle: const TextStyle(
+                                  fontSize: 32.0,
+                                ),
+
+                                speed: const Duration(milliseconds: 200)),
+                          ],
+                          onTap: () {
+                            print("Tap Event");
+                          },
+                          totalRepeatCount: 4,
+                          pause: const Duration(milliseconds: 10),
+                          displayFullTextOnTap: true,
+                          stopPauseOnTap: true,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Center(
+            //   child: Stack(
+            //     children: [
+            //       RadialMenu(
+            //           children: [
+            //         RadialButton(
+            //           buttonColor: Colors.transparent,
+            //             icon: const Icon(Icons.person_outlined,), onPress: ()=>{})
+            //       ])
+            //     ],
+            //   )
+            // ),
+
+
+          ],
+        ),
       ),
     );
   }
