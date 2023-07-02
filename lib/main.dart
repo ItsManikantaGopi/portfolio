@@ -1,8 +1,12 @@
 import 'package:animated_radial_menu/animated_radial_menu.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:mouse_parallax/mouse_parallax.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:page_transition/page_transition.dart';
+import 'dart:math';
+import 'package:flutter/material.dart';
 
 void main() {
   setUrlStrategy(PathUrlStrategy());
@@ -11,16 +15,41 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Manikanta Gopi',
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      home: const MyHomePage(),
-    );
+        title: 'Manikanta Gopi',
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        home: AnimatedSplashScreen(
+          splashIconSize: double.infinity,
+          splashTransition: SplashTransition.fadeTransition,
+          pageTransitionType: PageTransitionType.fade,
+          duration: 1500,
+          splash: Container(
+            height: double.infinity,
+            width: double.infinity,
+            color: Colors.black,
+            child: Center(
+              child: AnimatedTextKit(
+                animatedTexts: [
+                  WavyAnimatedText('Manikanta Gopi',
+                      textStyle: const TextStyle(
+                        fontSize: 32.0,
+                      ),
+                      speed: const Duration(milliseconds: 200)),
+                ],
+                onTap: () {
+                },
+                totalRepeatCount: 4,
+                pause: const Duration(milliseconds: 10),
+                displayFullTextOnTap: true,
+                stopPauseOnTap: true,
+              ),
+            ),
+          ),
+          nextScreen: const MyHomePage(),
+        ));
   }
 }
 
@@ -31,74 +60,53 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    var factor = min(height, width);
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 2,
+          margin: EdgeInsets.all( factor* 0.005),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              width: 2,
+            ),
           ),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-
-
-
-            Expanded(
-              child: ParallaxStack(
-                layers: [
-                  ParallaxLayer(
-                    yRotation: 0.35,
-                    xOffset: 60,
-                    zRotation: 0.35,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Center(
-                        child:AnimatedTextKit(
-                          animatedTexts: [
-                            WavyAnimatedText('Manikanta Gopi',
-                                textStyle: const TextStyle(
-                                  fontSize: 32.0,
-                                ),
-
-                                speed: const Duration(milliseconds: 200)),
-                          ],
-                          onTap: () {
-                            print("Tap Event");
-                          },
-                          totalRepeatCount: 4,
-                          pause: const Duration(milliseconds: 10),
-                          displayFullTextOnTap: true,
-                          stopPauseOnTap: true,
-                        ),
-                      ),
-                    ),
+          child: Container(
+            margin: EdgeInsets.all(factor * 0.05),
+            decoration: BoxDecoration(
+                border: Border.all(
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(100)),
+            child: Container(
+              margin: EdgeInsets.all(factor * 0.08),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 2,
                   ),
-                ],
+                  borderRadius: BorderRadius.circular(100)),
+              child: Container(
+                margin: EdgeInsets.all(factor * 0.07),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(100)),
+                child: Container(
+                  margin: EdgeInsets.all(factor * 0.075),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(100)),
+                  child: Container(),
+                ),
               ),
             ),
-
-            // Center(
-            //   child: Stack(
-            //     children: [
-            //       RadialMenu(
-            //           children: [
-            //         RadialButton(
-            //           buttonColor: Colors.transparent,
-            //             icon: const Icon(Icons.person_outlined,), onPress: ()=>{})
-            //       ])
-            //     ],
-            //   )
-            // ),
-
-
-          ],
-        ),
-      ),
+          )),
     );
   }
 }
