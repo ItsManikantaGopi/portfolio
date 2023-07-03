@@ -1,9 +1,9 @@
 import 'package:Manikanta_Gopi/screens/projects.dart';
 import 'package:Manikanta_Gopi/screens/socials.dart';
-import 'package:Manikanta_Gopi/screens/techstack.dart';
+import 'package:Manikanta_Gopi/screens/tech_stack.dart';
 import 'package:flutter/material.dart';
 
-import 'booksread.dart';
+import 'books_read.dart';
 import 'certifications.dart';
 import 'education.dart';
 import 'experience.dart';
@@ -15,13 +15,24 @@ class AboutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  TextButton(onPressed: ()=>
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => AboutPage()))
-    , child: const Text("About"));
+    return OutlinedButton(
+        style: ElevatedButton.styleFrom(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+        ),
+        onPressed: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const AboutPage())),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Text("About"),
+            SizedBox(width: 10),
+            Icon(Icons.arrow_forward, size: 20)
+          ],
+        ));
   }
 }
-
 
 
 class AboutPage extends StatelessWidget {
@@ -33,16 +44,18 @@ class AboutPage extends StatelessWidget {
         padding: const EdgeInsets.all(30),
         alignment: Alignment.topRight,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
-            SocialsButton(),
+            ExperienceButton(),
             TechStackButton(),
             ProjectsButton(),
-            InterestsButton(),
-            HobbiesButton(),
-            ExperienceButton(),
             EducationButton(),
             CertificationsButton(),
-            BooksReadButton()
+            BooksReadButton(),
+            InterestsButton(),
+            HobbiesButton(),
+            SocialsButton(),
           ],
         ),
       ),
